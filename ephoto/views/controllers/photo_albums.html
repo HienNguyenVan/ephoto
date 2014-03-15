@@ -1,0 +1,207 @@
+
+<script language="JavaScript" type="text/javascript">
+{literal}
+  window.filterParams = {
+    page: 1,
+    listType: 0,
+    search: '',
+	format: 'json'
+  };
+
+  window.is_next = 1;
+
+  window.filterLoading = false;
+
+  function filterByCategory(category)
+  {
+    if (window.filterLoading){
+      return ;
+    }
+    window.filterLoading = true;
+    $('#hapLoader').addClass('active');
+
+    // prepare filter fields
+    window.filterParams.page = 1;
+    window.filterParams.listType = category;
+
+    $('#hapNavigation').find('.categories').find('a').removeClass('active');
+    $('#category_'+category).addClass('active');
+	
+	$.ajax({
+	  url: '',
+      data: window.filterParams,
+	  dataType : "json",
+      success: function (res)
+      {
+		window.filterLoading = false;
+        $('#hapLoader').removeClass('active');
+
+        window.is_next = res.is_next;
+
+        var $c = $('#hapThumbs');
+        if (res.item_count){
+          $('#tipNoResult').hide();
+          $c.show();
+          $c.empty();
+		  //inject
+		  $c.append(res.body);
+		  if(res.item_count){
+			var items = $(res.body);
+	        items.css('opacity', 0);
+		  }
+        } else {
+          $('#tipNoResult').show();
+          $c.hide();
+        }
+      }
+	});	
+  }
+
+  function filterBySearch(search)
+  {
+    if (window.filterLoading){
+      return ;
+    }
+    window.filterLoading = true;
+    $('#hapLoader').addClass('active');
+
+    // prepare filter fields
+    window.filterParams.page = 1;
+    window.filterParams.search = search;
+
+    $.ajax({
+	  url: '',
+      data: window.filterParams,
+	  dataType : "json",
+      success: function (res)
+      {
+		window.filterLoading = false;
+        $('#hapLoader').removeClass('active');
+
+        window.is_next = res.is_next;
+
+        var $c = $('#hapThumbs');
+        if (res.item_count){
+          $('#tipNoResult').hide();
+          $c.show();
+          $c.empty();
+		  //inject
+		  $c.append(res.body);
+		  if(res.item_count){
+			var items = $(res.body);
+	        items.css('opacity', 0);
+		  }
+        } else {
+          $('#tipNoResult').show();
+          $c.hide();
+        }
+      }
+	});	
+  }
+
+  function viewMore()
+  {
+    if (!window.is_next){
+      return ;
+    }
+    if (window.filterLoading){
+      return ;
+    }
+    window.filterLoading = true;
+    $('#hapLoader').addClass('active');
+
+    // prepare filter fields
+    window.filterParams.page++;
+
+    $.ajax({
+	  url: '',
+      data: window.filterParams,
+	  dataType : "json",
+      success: function (res)
+      {
+		window.filterLoading = false;
+        $('#hapLoader').removeClass('active');
+
+        window.is_next = res.is_next;
+
+        var $c = $('#hapThumbs');
+        if (res.item_count){
+          $('#tipNoResult').hide();
+          $c.show();
+          $c.empty();
+		  //inject
+		  $c.append(res.body);
+		  if(res.item_count){
+			var items = $(res.body);
+	        items.css('opacity', 0);
+		  }
+        } else {
+        }
+      }
+	});	
+  }
+
+
+    // loading on scroll down
+  $(window).scroll(function () {
+
+    // check bottom
+    var is_bottom = ($(window).scrollTop() >= $(document).height() - $(window).height());
+    if (!is_bottom) {
+      return;
+    }
+    viewMore();
+
+  });
+{/literal}
+</script>
+
+<div class="ow_right">{decorator name='button' class='ow_ic_add' id='btn-add-new-photo' langLabel='photo+add_new'}</div>
+
+{$photoMenu}
+
+{component class='ADVANCEDPHOTO_CMP_FeaturedPhotos'}
+
+<div class="hapLoader" id="hapLoader"></div>
+
+
+<div class="hapNavigation" id="hapNavigation">
+  <div class="title">
+    <h2>Albums</h2>
+  </div>
+  <ul class="categories">
+    <li>
+    <a href="javascript:void(0);" onclick="filterByCategory('latest')" id="category_latest" class="active">
+      Latest
+    </a>
+    </li>
+    {foreach from=$categories item='item' name='cat'}
+    <li>
+      <a href="javascript:void(0);" onclick="filterByCategory({$item->id})" id="category_{$item->id}">
+        {$item->name}
+      </a>
+    </li>
+    {/foreach}
+  </ul>
+	<div style="clear: both;"></div>
+  <form action="" id="hapSearchForm" class="hapSearchForm" onsubmit="filterBySearch($('#search_value').attr('value')); return false;">
+    <input id="search_value" type="text" name="search" value="" placeholder="{text key='advancedphoto+search'}"/>
+    <a href="javascript:void(0)" class="hap-btn" onclick="filterBySearch($('#search_value').attr('value'));"><i class="icon-search"></i></a>
+  </form>
+
+</div>
+
+
+<ul class="hapThumbs" id="hapThumbs">
+   {component class='ADVANCEDPHOTO_CMP_AlbumList' listType=$listType}
+</ul>
+  
+<div class="tip" style="display: none;" id="tipNoResult">
+   <span>
+     {text key='advancedphoto+nobody_has_created_an_photo_with_that_criteria'}
+   </span>
+ </div>
+
+
+<br />
+<br />

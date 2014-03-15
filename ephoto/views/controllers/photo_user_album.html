@@ -1,0 +1,157 @@
+<script language="JavaScript" type="text/javascript">
+{literal}
+window.filterParams = {
+	page: 1,
+	listType: 0,
+	search: "",
+	format: "json"
+  };
+
+  window.filterLoading = false;
+  window.is_next = 1;
+
+  function filterByCategory(category)
+  {
+	// prepare filter fields
+	window.filterParams.page = 1;
+	window.filterParams.listType = category;
+
+	hap.options.request_params = $.merge(hap.options.request_params, window.filterParams);
+
+	$("#hapNavigation").find(".categories").find("a").removeClass("active");
+	$("#category_" + category).addClass("active");
+
+	hap.loadContent("", window.filterParams, function (res){
+	  var $c = $("#hapPhotos");
+	  if (res.item_count){
+		$("#tipNoResult").hide();
+		$c.show();
+	  } else {
+		$("#tipNoResult").show();
+		$c.hide();
+	  }
+	});
+  }
+
+  function filterBySearch(search)
+  {
+	// prepare filter fields
+	window.filterParams.page = 1;
+	window.filterParams.search = search;
+	
+	hap.options.request_params = $.merge(hap.options.request_params, window.filterParams);
+
+	hap.loadContent("", window.filterParams, function (res){
+	  var $c = $("#hapPhotos");
+	  if (res.item_count){
+		$("#tipNoResult").hide();
+		$c.show();
+	  } else {
+		$("#tipNoResult").show();
+		$c.hide();
+	  }
+	});
+  }
+{/literal}
+</script>
+<div class="ow_photo_infobar ow_alt2 ow_smallmargin">
+    {text key='photo+album_by'} {user_link id=$album->userId name=$displayName}{if $lastUpdate}, {text key='photo+album_updated'} {format_date timestamp=$lastUpdate}{/if}
+    <div class="ow_small"><a href="{url_for_route for="photo_user_albums:[user=>$userName]"}">{text key='photo+view_user_albums'}</a></div>
+</div>
+
+{if $canUpload}
+<div class="ow_stdmargin clearfix">
+    <div class="ow_right ow_txtright ow_narrow">
+        {decorator name='button' langLabel='photo+upload_photos' id='btn-upload' class='ow_ic_add'}
+    </div>
+</div>
+{/if}
+<div class="hapLoader" id="hapLoader"></div>
+<div class="hapLoader" id="hapBuildLoader"></div>
+<div class="ow_photo_list ow_stdmargin clearfix">
+
+    {assign var='alt1' value=true}
+    {assign var='cnt' value=0}
+    
+    {* Count of items in row *}
+    {assign var='count' value=5}
+	<ul class="hapPhotos" id="hapPhotos">
+	{foreach from=$photos item='photo' name='p'}
+	
+        {if $cnt == $count}
+            {if $alt1}{assign var='alt1' value=false}{else}{assign var='alt1' value=true}{/if}
+            {assign var='cnt' value=0}
+        {/if}
+        
+        {assign var='cnt' value=$cnt+1}
+        
+	    {capture name='href'}
+	        {url_for_route for="view_photo:[id=>`$photo.dto->id`]"}
+	    {/capture}
+				<li id="photo_{$photo.id}" style="visibility: hidden;"> <!--  visibility: hidden; waiting rebuild -->
+				<div class="photo">
+				  <a rel="{$photo.id}" href="{$smarty.capture.href}" class="aimg"><img src="{$photo.fullurl}" class="img" alt="" id="img_{$photo.id}"/></a>
+				</div>
+				<div class="caption">
+				  <div class="content">
+					
+				  </div>
+				</div>
+				<div class="hover-caption">
+				  <div class="content">
+					<div class="title">
+					 
+					</div>
+					<div class="info">
+					  <span class="like-count"><i class="icon-comment"></i>{if $photo.comments_count} {$photo.comments_count} {else} 0 {/if}</span>
+					</div>
+					
+				  </div>
+				</div>
+			  </li>
+	{foreachelse}
+	    <div class="ow_nocontent">{text key='photo+no_photo_found'}</div>
+	{/foreach}
+	</ul>
+</div>
+{add_content key='socialsharing.get_sharing_buttons' text=$album->name}
+{add_content key='photo.photo_album.content.after_content'}
+
+<div class="ow_stdmargin clearfix">
+
+    <div class="ow_left ow_wide">{$paging}</div>
+    
+    <div class="ow_right ow_txtright ow_narrow">
+        {if $authorized}
+            <div class="ow_btn_delimiter">
+                {decorator name='button' langLabel='photo+delete_album' id='btn-delete-album' class='ow_ic_delete'}{decorator name='button' langLabel='photo+edit_album' id='btn-edit-album' class='ow_ic_edit'}
+            </div>
+            <div class="ow_hidden">
+                <div id="edit_album_form">
+                    {form name='albumEditForm'}
+                        <table class="ow_table_1 ow_form ow_full">
+                        <tr class="ow_alt2 ow_tr_first ow_tr_last">
+                            <td class="ow_label">{text key='photo+album'}</td>
+                            <td class="ow_value">
+                                {input name='albumName'}
+                                {error name='albumName'}
+                            </td>
+                       </tr>
+                       <tr>     
+                            <td class="ow_label">{text key='advancedphoto+category'}</td>
+                            <td class="ow_value">
+                                {input name='category'}
+                                {error name='category'}
+                            </td>
+                        </tr>
+                        </table>
+                        <div class="clearfix">
+                            <div class="ow_right">{submit name='save' class='ow_positive'}</div>
+                        </div>
+                   {/form}
+                </div>
+            </div>
+        {/if}
+    </div>
+</div>
+

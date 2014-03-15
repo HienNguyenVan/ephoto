@@ -1,0 +1,36 @@
+{$menu}
+{if count($allCategories) eq 0}
+{text key='advancedphoto+admin_no_categories'} <br/><br/>
+{else}
+<div class="ow_automargin ow_superwide">
+    <table class="ow_table_1 ow_form ow_automargin">
+        {foreach from=$allCategories item=category}
+        <tr class="{cycle values='ow_alt1,ow_alt2'}" style="width: 200px;">
+            <td width="1"><a href="{{$deleteUrls[$category.id]}}" onclick="return confirm('{text key="base+are_you_sure"}');" style="width:16px; height:16px; display:block; margin:0 auto;background-repeat:no-repeat;background-position: 50% 50%;" class="ow_ic_delete"></a></td>
+            <td>{$category.name}</td>
+        </tr>
+        {/foreach}
+    </table>
+</div>
+{/if}
+
+<div class="ow_automargin ow_superwide">
+
+    {form name='categoriesForm'}
+    <table class="ow_table_1 ow_form">
+
+        <tr> 
+            <td class="ow_value">{input name="categoryName"} {error name='categoryName'}</td>
+        </tr>
+	{*
+        <tr> 
+            <td class="ow_value">{input name="categoryDesc"} {error name='categoryDesc'}</td>
+        </tr>
+	*}	
+        <tr>
+            <td class="ow_center">{submit name='addCategory' class='ow_button ow_ic_save'}</td>
+        </tr>
+    </table>
+    {/form}
+
+</div>

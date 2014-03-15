@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<plugin>
+	<name>Advanced Photo</name>
+	<key>advancedphoto</key>
+	<description>Advanced Photo is much easier to share photos with friends and community, beautiful photo browsing, viewing and quick interaction. idragonsolution.com</description>
+    <author>iDragon Solution Co., Ltd</author>
+    <authorEmail>dragonit80@gmail.com</authorEmail>
+    <developerKey>f1554eb716461000beca46d0aa52dd27</developerKey>
+    <build>1</build>
+    <copyright>(C) iDragon Solution Co., Ltd</copyright>
+    <license>The BSD License</license>
+    <licenseUrl>http://idragonsolution.com/license</licenseUrl>
+</plugin>

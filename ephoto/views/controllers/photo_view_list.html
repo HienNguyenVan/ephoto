@@ -1,0 +1,111 @@
+<script language="JavaScript" type="text/javascript">
+{literal}
+window.filterParams = {
+	page: 1,
+	listType: 0,
+	search: "",
+	format: "json"
+  };
+
+  window.filterLoading = false;
+  window.is_next = 1;
+
+  function filterByCategory(category)
+  {
+	// prepare filter fields
+	window.filterParams.page = 1;
+	window.filterParams.listType = category;
+
+	hap.options.request_params = $.merge(hap.options.request_params, window.filterParams);
+
+	$("#hapNavigation").find(".categories").find("a").removeClass("active");
+	$("#category_" + category).addClass("active");
+
+	hap.loadContent("", window.filterParams, function (res){
+	  var $c = $("#hapPhotos");
+	  if (res.item_count){
+		$("#tipNoResult").hide();
+		$c.show();
+	  } else {
+		$("#tipNoResult").show();
+		$c.hide();
+	  }
+	});
+  }
+
+  function filterBySearch(search)
+  {
+	// prepare filter fields
+	window.filterParams.page = 1;
+	window.filterParams.search = search;
+	
+	hap.options.request_params = $.merge(hap.options.request_params, window.filterParams);
+
+	hap.loadContent("", window.filterParams, function (res){
+	  var $c = $("#hapPhotos");
+	  if (res.item_count){
+		$("#tipNoResult").hide();
+		$c.show();
+	  } else {
+		$("#tipNoResult").show();
+		$c.hide();
+	  }
+	});
+  }
+{/literal}
+</script>
+
+<div class="ow_right">{decorator name='button' class='ow_ic_add' id='btn-add-new-photo' langLabel='photo+add_new'}</div>
+
+{$photoMenu}
+
+{component class='ADVANCEDPHOTO_CMP_FeaturedPhotos'}
+
+
+<div class="hapLoader" id="hapLoader"></div>
+<div class="hapLoader" id="hapBuildLoader"></div>
+
+
+<div class="hapNavigation photo" id="hapNavigation">
+  <div class="title">
+    <h2>Photos</h2>
+  </div>
+  <ul class="categories">
+    <li>
+    <a href="javascript:void(0);" onclick="filterByCategory('latest')" id="category_latest" class="active">
+      Latest
+    </a>
+    </li>
+    <li>
+      <a href="javascript:void(0);" onclick="filterByCategory('toprated')" id="category_toprated">
+		Top Rated
+    </a>
+    </li>
+    
+	{foreach from=$categories item='item' name='cat'}
+    <li>
+      <a href="javascript:void(0);" onclick="filterByCategory({$item->id})" id="category_{$item->id}">
+        {$item->name}
+      </a>
+    </li>
+	{/foreach}	
+  </ul>
+	{*
+  <form action="" id="hapSearchForm" class="hapSearchForm" onsubmit="filterBySearch($('#search_value').album('value')); return false;">
+    <input id="search_value" type="text" name="search" value="" placeholder="{text key='advancedphoto+search'}"/>
+    <a href="javascript:void(0)" class="hap-btn" onclick="filterBySearch($('#search_value').attr('value'));"><i class="icon-search"></i></a>
+  </form>
+  *}
+</div>
+
+
+<div class="ow_photo_list ow_stdmargin clearfix">
+	<ul class="hapPhotos" id="hapPhotos">
+	{component class='ADVANCEDPHOTO_CMP_PhotoList' listType=$listType count=5 idPrefix=''}
+	</ul>
+</div>
+<div class="tip" style="display: none;" id="tipNoResult">
+   <span>
+	{text key='advancedphoto+nobody_has_created_an_photo_with_that_criteria'}
+   </span>
+ </div>

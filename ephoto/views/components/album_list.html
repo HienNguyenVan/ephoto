@@ -1,0 +1,37 @@
+{if !$no_content}
+	{foreach from=$albums item='album' name='a'}    
+		  <li>
+			<div class="thumbs_photo">
+			  <a class="" href="{url_for_route for="photo_user_album:[user=>`$usernames[$album.dto.userId]`, album=>`$album.dto.id`]"}">
+				<span style="background-image: url({$album.cover});"></span>
+			  </a>
+			  <div class="caption">
+				<div class="content">
+				</div>
+			  </div>
+			  <div class="hover-caption">
+				<div class="content">
+				  <div class="title">
+					{text key='advancedphoto+by'}&nbsp;{user_link username=$usernames[$album.dto.userId] name=$names[$album.dto.userId]}
+				  </div>
+				  <div class="info">
+					<div class="photo-count">
+					  <i class="icon-picture"></i>
+					  {$album.photo_count}
+					</div>
+				  </div>
+				</div>
+			</div>
+
+			</div>
+
+			<span class="thumbs_title">
+			  <a href="{url_for_route for="photo_user_album:[user=>`$usernames[$album.dto.userId]`, album=>`$album.dto.id`]"}">{$album.dto.name|truncate:22}</a>
+			</span>
+		  </li>
+	{/foreach}	
+{else}
+	{if !isset($format) || $format != 'json'}
+    	<div class="ow_nocontent">{text key='advanced+no_album_found'}</div>
+    {/if}
+{/if}

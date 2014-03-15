@@ -1,0 +1,35 @@
+<div class="ow_right">{decorator name='button' class='ow_ic_add' id='btn-add-new-photo' langLabel='photo+add_new'}</div>
+{$photoMenu}
+
+{if isset($tag)}
+    <div class="clearfix">
+        <div class="ow_left ow_superwide">            
+            <div class="ow_anno ow_std_margin ow_center">
+                {text key='photo+tag_search_result'} "<b>{$tag}</b>"
+            </div>
+        </div>
+	
+		<div class="ow_right ow_supernarrow">
+            {block_decorator name='box' addClass='ow_smallmargin' iconClass='ow_ic_tag' langLabel='photo+tag_search'}
+                <input type="text" class="ow_text" value="{$tag}" id="photo-tag-search-input" />
+            {/block_decorator}
+	    </div>
+    </div>
+	<div class="hapLoader" id="hapLoader"></div>
+	<div class="hapLoader" id="hapBuildLoader"></div>
+	<ul class="hapPhotos" id="hapPhotos">
+		{component class='ADVANCEDPHOTO_CMP_PhotoList' listType=$listType count=5 idPrefix='' tag=$tag}
+	</ul>	
+{else}
+    <div class="clearfix">
+        <div class="ow_left ow_superwide">
+            {$tags}
+        </div>
+        
+        <div class="ow_right ow_supernarrow">
+            {block_decorator name='box' addClass='ow_stdmargin' iconClass='ow_ic_tag' langLabel='photo+tag_search'}
+                <input type="text" class="ow_text" id="photo-tag-search-input" />
+            {/block_decorator}
+        </div>
+    </div>
+{/if}

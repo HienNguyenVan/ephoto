@@ -1,0 +1,33 @@
+{if !$no_content}
+			{foreach from=$photos item='photo' name='p'}
+				 {* check it later provacy*}	    
+				<li id="{$idPrefix}photo_{$photo.id}" style="visibility: hidden;"> <!--  visibility: hidden; waiting rebuild -->
+				<div class="photo">
+				  <a rel="{$photo.id}" href="{url_for_route for="view_photo:[id=>`$photo.id`]"}" class="aimg"><img src="{$photo.url}" class="img" alt="" id="{$idPrefix}img_{$photo.id}"/></a>
+				</div>
+				<div class="caption">
+				  <div class="content">
+					{text key='advancedphoto+by'}&nbsp;{user_link username=$usernames[$photo.userId] name=$names[$photo.userId]}
+				  </div>
+				</div>
+				<div class="hover-caption">
+				  <div class="content">
+					<div class="title">
+					  {text key='advancedphoto+in'}&nbsp;<a href="{$photo.album_href}">{$photo.album_title|truncate:22}</a><br />
+					  {text key='advancedphoto+by'}&nbsp;{user_link username=$usernames[$photo.userId] name=$names[$photo.userId]}
+					</div>
+					<div class="info">
+						{if $listType == 'toprated'}{if $photo.score}{display_rate avg_rate=$photo.score}{/if}{/if}
+					  <!-- <span class="comment-count"><i class="icon-thumbs-up"></i></span>
+					  <span class="like-count"><i class="icon-comment"></i></span> -->
+					</div>
+					
+				  </div>
+				</div>
+			  </li>
+			{/foreach}	
+{else}
+	{if !isset($format) || $format != 'json'}
+    	<div class="ow_nocontent">{text key='photo+no_photo_found'}</div>
+    {/if}
+{/if}

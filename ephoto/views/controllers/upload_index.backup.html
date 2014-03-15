@@ -1,0 +1,113 @@
+{style}
+{literal}
+    #page_upload_advanced { width: 695px; }
+{/literal}
+{/style}
+
+{script}
+
+$("#button-all-albums").click(function(){
+    window.location.assign("{$allAlbumsBtn.url}");
+});
+
+{/script}
+
+<div class="ow_upload_photo clearfix">
+
+    {if $auth_msg}<div class="clearfix ow_smallmargin">{/if}
+    {block_decorator name='box' type='empty' addClass='ow_right'}
+        {decorator name='button' label=$allAlbumsBtn.label class='ow_ic_picture' id='button-all-albums'}
+    {/block_decorator}
+    {if $auth_msg}</div>{/if}
+       
+    {if !$auth_msg}
+        <div id="ow_photo_upload_menu">{$menu}</div>
+        
+        <div class="ow_photo_upload_page ow_automargin" id="page_upload_advanced">
+        <!--<div id="ow_flash_photo_uploader">
+            <p>To view this page ensure that Adobe Flash Player version 10.0.0 or greater is installed.</p>
+            <script type="text/javascript">
+                var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
+                document.write('<a href="http://www.adobe.com/go/getflashplayer"><img src="' 
+                + pageHost + 'www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a>');
+            </script> 
+        </div>-->
+            <center>
+                <form enctype="multipart/form-data" action="{$actionUrl}" method="POST">
+                    <div id="select-upload-type">
+                        <span>I would like to</span>
+                        <select onchange="javascript: showLayer(this.value);" name="action">
+                            <option value="">- Select -</option>
+                            <option value="gallery">Upload a new Gallerie</option>
+                            <option value="gallery2">Add new Photos to existing Gallerie</option>
+                        </select>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <div id="gallery" class="upload-step1" style="display: none;">
+                        <p>Please enter a descriptive title for your gallery:</p>
+                        <input type="text" name="decription" />
+                        <br />
+                        <div id="select-category">
+                        <strong>Category 1</strong>
+                        <select name="category1">
+                            <option value="">- Select -</option>
+                            <option value="1">Category 1</option>
+                            <option value="2">Category 2</option>
+                        </select>
+                        <strong>Category 2</strong>
+                        <select name="category2">
+                            <option value="">- Select -</option>
+                            <option value="1">Category 1</option>
+                            <option value="2">Category 2</option>
+                        </select>
+                        <strong>Category 3</strong>
+                        <select name="category3">
+                            <option value="">- Select -</option>
+                            <option value="1">Category 1</option>
+                            <option value="2">Category 2</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div id="gallery2" class="upload-step1" style="display: none;">
+                        <p>To which gallery would you like to add?</p>
+                        <select name="photo-gallery">
+                            <option value="">- Select -</option>
+                        </select>
+                    </div>
+                    <div id="upload-action" class="upload-step2" style="display: none;">
+                        <div><input type="file" name="file" /></div>
+                        <input type="button" value="Reset" />
+                        <input type="submit" value="Submit" />
+                    </div>
+                </form>
+                <script>
+                    var showLayer = function (id) {
+                        var els = document.getElementsByClassName('upload-step1'),
+                            actionSession = document.getElementById('upload-action');
+
+                        for (var i = 0, len = els.length; i < len; i++) {
+                            var el = els[i];
+
+                            if (el.id === id){
+                                el.style.display = 'block';
+                            } else {
+                                el.style.display = 'none';
+                            }
+                        }
+
+                        if (id) {
+                            actionSession.style.display = 'block';
+                        } else {
+                            actionSession.style.display = 'none';
+                        }
+                    };
+                </script>
+            </center>
+        </div>
+    {else}
+        <div class="ow_anno ow_std_margin ow_nocontent">{$auth_msg}</div>
+    {/if}
+
+</div>

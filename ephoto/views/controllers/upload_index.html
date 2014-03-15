@@ -1,0 +1,99 @@
+{style}
+{literal}
+    #page_upload_advanced { width: 695px; }
+{/literal}
+{/style}
+
+{script}
+
+$("#button-all-albums").click(function(){
+    window.location.assign("{$allAlbumsBtn.url}");
+});
+
+var showLayer = function (id) {
+    var els = document.getElementsByClassName('upload-step1'),
+        actionSession = document.getElementById('upload-action');
+
+    for (var i = 0, len = els.length; i < len; i++) {
+        var el = els[i];
+
+        if (el.id === id){
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    }
+
+    if (id) {
+        actionSession.style.display = 'block';
+    } else {
+        actionSession.style.display = 'none';
+    }
+};
+
+{/script}
+
+<div class="ow_upload_photo clearfix">
+
+    {if $auth_msg}<div class="clearfix ow_smallmargin">{/if}
+    {block_decorator name='box' type='empty' addClass='ow_right'}
+        {decorator name='button' label=$allAlbumsBtn.label class='ow_ic_picture' id='button-all-albums'}
+    {/block_decorator}
+    {if $auth_msg}</div>{/if}
+       
+    {if !$auth_msg}
+    {if $advancedUpload}
+        <div id="ow_photo_upload_menu">{$menu}</div>
+        
+        <div class="ow_photo_upload_page ow_automargin" id="page_upload_advanced">
+        <div id="ow_flash_photo_uploader">
+            <p>To view this page ensure that Adobe Flash Player version 10.0.0 or greater is installed.</p>
+            <script type="text/javascript">
+                var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
+                document.write('<a href="http://www.adobe.com/go/getflashplayer"><img src="' 
+                + pageHost + 'www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a>');
+            </script> 
+        </div>
+        </div>
+        
+        <div class="ow_photo_upload_page" id="page_upload_simple" style="display: none;">
+            <div class="ow_superwide ow_automargin">
+            {form name='photoUploadForm'}
+            <table class="ow_table_1 ow_form">
+                <tr class=" ow_tr_first ow_alt1">
+                    <td class="ow_label"></td>
+                    <td class="ow_value">
+                        {input name='photos'}{error name='photos'}
+                    </td>
+                    <td class="ow_desc ow_small">{$limitMsg}</td>
+                </tr>
+            </table>
+            <div class="clearfix">
+                <div class="ow_right">{submit name='upload' class='ow_ic_up_arrow ow_positive'}</div>
+            </div>
+            {/form}
+            </div>
+        </div>
+    {else}
+        <div class="ow_superwide ow_automargin">
+        {form name='photoUploadForm'}
+        <table class="ow_table_1 ow_form">
+            <tr class="ow_alt1 ow_tr_first">
+                <td class="ow_label"></td>
+                <td class="ow_value">
+                    {input name='photos'}{error name='photos'}
+                </td>
+                <td class="ow_desc ow_small">{$limitMsg}</td>
+            </tr>
+        </table>
+        <div class="clearfix">
+            <div class="ow_right"><input type="button" value="Reset" />{submit name='upload' class='ow_ic_up_arrow ow_positive'}</div>
+        </div>
+        {/form}
+        </div>
+    {/if}
+    {else}
+        <div class="ow_anno ow_std_margin ow_nocontent">{$auth_msg}</div>
+    {/if}
+
+</div>

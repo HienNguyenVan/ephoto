@@ -1,0 +1,223 @@
+<script language="JavaScript" type="text/javascript">
+{literal}
+  window.filterParams = {
+    page: 1,
+    listType: 0,
+    search: '',
+	format: 'json'
+  };
+
+  window.is_next = 1;
+
+  window.filterLoading = false;
+
+  function filterByCategory(category)
+  {
+    if (window.filterLoading){
+      return ;
+    }
+    window.filterLoading = true;
+    $('#hapLoader').addClass('active');
+
+    // prepare filter fields
+    window.filterParams.page = 1;
+    window.filterParams.listType = category;
+
+    $('#hapNavigation').find('.categories').find('a').removeClass('active');
+    $('#category_'+category).addClass('active');
+	
+	$.ajax({
+	  url: '',
+      data: window.filterParams,
+	  dataType : "json",
+      success: function (res)
+      {
+		window.filterLoading = false;
+        $('#hapLoader').removeClass('active');
+
+        window.is_next = res.is_next;
+
+        var $c = $('#hapThumbs');
+        if (res.item_count){
+          $('#tipNoResult').hide();
+          $c.show();
+          $c.empty();
+		  //inject
+		  $c.append(res.body);
+		  if(res.item_count){
+			var items = $(res.body);
+	        items.css('opacity', 0);
+		  }
+        } else {
+          $('#tipNoResult').show();
+          $c.hide();
+        }
+      }
+	});	
+  }
+
+  function filterBySearch(search)
+  {
+    if (window.filterLoading){
+      return ;
+    }
+    window.filterLoading = true;
+    $('#hapLoader').addClass('active');
+
+    // prepare filter fields
+    window.filterParams.page = 1;
+    window.filterParams.search = search;
+
+    $.ajax({
+	  url: '',
+      data: window.filterParams,
+	  dataType : "json",
+      success: function (res)
+      {
+		window.filterLoading = false;
+        $('#hapLoader').removeClass('active');
+
+        window.is_next = res.is_next;
+
+        var $c = $('#hapThumbs');
+        if (res.item_count){
+          $('#tipNoResult').hide();
+          $c.show();
+          $c.empty();
+		  //inject
+		  $c.append(res.body);
+		  if(res.item_count){
+			var items = $(res.body);
+	        items.css('opacity', 0);
+		  }
+        } else {
+          $('#tipNoResult').show();
+          $c.hide();
+        }
+      }
+	});	
+  }
+
+  function viewMore()
+  {
+    if (!window.is_next){
+      return ;
+    }
+    if (window.filterLoading){
+      return ;
+    }
+    window.filterLoading = true;
+    $('#hapLoader').addClass('active');
+
+    // prepare filter fields
+    window.filterParams.page++;
+
+    $.ajax({
+	  url: '',
+      data: window.filterParams,
+	  dataType : "json",
+      success: function (res)
+      {
+		window.filterLoading = false;
+        $('#hapLoader').removeClass('active');
+
+        window.is_next = res.is_next;
+
+        var $c = $('#hapThumbs');
+        if (res.item_count){
+          $('#tipNoResult').hide();
+          $c.show();
+          $c.empty();
+		  //inject
+		  $c.append(res.body);
+		  if(res.item_count){
+			var items = $(res.body);
+	        items.css('opacity', 0);
+		  }
+        } else {
+        }
+      }
+	});	
+  }
+
+
+    // loading on scroll down
+  $(window).scroll(function () {
+
+    // check bottom
+    var is_bottom = ($(window).scrollTop() >= $(document).height() - $(window).height());
+    if (!is_bottom) {
+      return;
+    }
+    viewMore();
+
+  });
+{/literal}
+</script>
+
+<div class="ow_right">{decorator name='button' class='ow_ic_add' id='btn-add-new-photo' langLabel='photo+add_new'}</div>
+
+{$photoMenu}
+
+
+<div class="ow_photo_infobar ow_alt2">
+    <span class="ow_txt_value">{$total}</span> {text key='photo+albums_by'} {user_link id=$userId name=$displayName}
+</div>
+<div class="hapLoader" id="hapLoader"></div>
+<div class="ow_photo_list ow_stdmargin clearfix">
+
+    {assign var='alt1' value=true}
+    {assign var='cnt' value=0}
+    
+    {* Count of items in row *}
+    {assign var='count' value=5}
+	<ul class="hapThumbs" id="hapThumbs">
+	{foreach from=$albums item='album' name='a'}
+	    
+	    {if $cnt == $count}
+            {if $alt1}{assign var='alt1' value=false}{else}{assign var='alt1' value=true}{/if}
+            {assign var='cnt' value=0}
+        {/if}
+        
+        {assign var='cnt' value=$cnt+1}
+        
+	    {capture name='href'}
+	        {url_for_route for="photo_user_album:[user=>`$username`, album=>`$album.dto->id`]"}
+	    {/capture}
+	
+		<li>
+			<div class="thumbs_photo">
+			  <a class="" href="{$smarty.capture.href}">
+				<span style="background-image: url({$album.cover});"></span>
+			  </a>
+			  <div class="caption">
+				<div class="content">
+				</div>
+			  </div>
+			  <div class="hover-caption">
+				<div class="content">
+				  <div class="title">
+				
+				  </div>
+				  <div class="info">
+					<div class="photo-count">
+					  <i class="icon-picture"></i>
+					  {$album.photo_count}
+					</div>
+				  </div>
+				</div>
+			</div>
+
+			</div>
+
+			<span class="thumbs_title">
+			  <a href="{$smarty.capture.href}">{$album.dto->name|truncate:22}</a>
+			</span>
+		  </li>	
+	{foreachelse}
+	    <div class="ow_nocontent">{text key='photo+no_album_found'}</div>
+	{/foreach}
+	</ul>
+</div>
+
+{$paging}

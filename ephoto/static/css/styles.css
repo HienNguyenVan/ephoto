@@ -1,0 +1,846 @@
+/* $Id: main.css 2013-01-21 19:05 ratbek $ */
+.ids_advanced_albums_content .widget {
+    opacity: 0;
+    display: none;
+}
+.ids_advanced_albums_content .widget.active {
+    opacity: 1;
+    display: block;
+}
+.ids_advancedalbum_profile_albums_navigaton {
+  margin-bottom: 40px;
+  margin-left: 3px;
+}
+.ids_advancedalbum_profile_albums_navigaton li {
+
+  -moz-box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 12px;
+    padding: 10px 18px;
+    width: 190px;
+  overflow: hidden;
+}
+.ids_advancedalbum_profile_albums_navigaton > li > label {
+  color: $theme_font_color_light;
+  font-size: 11.5px;
+}
+.ids_advancedalbum_profile_albums_navigaton > li > span {
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+}
+.ids_advancedalbum_profile_albums_navigaton > li > i {
+  display: block;
+  float: left;
+  font-size: 36px;
+  margin-right: 8px;
+}
+
+.ids_advancedalbum_profile_albums_navigaton li.active_item label,
+.ids_advancedalbum_profile_albums_navigaton li:hover label {
+    color: $theme_border_medium_color;
+}
+.ids_advancedalbum_profile_albums_navigaton li.active_item,
+.ids_advancedalbum_profile_albums_navigaton li:hover {
+    background: none repeat scroll 0 0 $theme_link_color;
+    color: $theme_tabs_background_color_active;
+}
+
+.ids_photos_container .ids_photos {
+  max-height: 180px;
+}
+
+.ids_photos_container .scroll_photos {
+  margin: 4px;
+  max-height: 180px;
+}
+
+.ids_photos_container .ids_album_view {
+  max-height: 170px;
+}
+
+
+.ids_featured_photos_container,
+.ids_p_albums_container {
+    text-align: center;
+}
+
+.ids_photos_container .owner_name,
+.ids_featured_photos_container .owner_name,
+.ids_p_albums_container .owner_name,
+.ids_albums_container .owner_name,
+.ids_friends_photos .owner_name {
+  color: #FFFFFF;
+  text-shadow: 1px 1px 0 #424242;
+  position: absolute;
+  font-size: 11px;
+  left: 7px;
+  bottom: 6px;
+}
+
+.ids_photos_container .owner_name a,
+.ids_featured_photos_container .owner_name a,
+.ids_p_albums_container .owner_name a,
+.ids_albums_container .owner_name a,
+.ids_friends_photos .owner_name a {
+  color: #FFFFFF;
+  text-shadow: 1px 1px 0 #424242;
+  font-size: 11px;
+}
+
+.ids_featured_photos_container .f_photo_container,
+.ids_p_albums_container .p_album_container,
+.ids_friends_photos .photo_container {
+  display: inline-block;
+  position: relative;
+  margin: 3px;
+  opacity: 1;
+}
+.ids_photos_container .photo_container,
+.ids_albums_container .album_container {
+  display: inline-block;
+  position: relative;
+  margin: 3px;
+  opacity: 0;
+  margin-bottom: 16px;
+}
+
+.ids_photos_container .hide,
+.ids_featured_photos_container .hide,
+.ids_p_albums_container .hide,
+.ids_albums_container .hide,
+.ids_friends_photos .hide {
+  display: none;
+}
+
+.ids_photos_container .info,
+.ids_featured_photos_container .info,
+.ids_p_albums_container .info,
+.ids_friends_photos .info{
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  padding: 2px 0;
+  width: 100%;
+  position: absolute;
+  opacity: 0;
+  left: 0px;
+  bottom: 3px;
+}
+
+.ids_albums_container .info {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  padding: 2px 0;
+  width: 92%;
+  position: absolute;
+  opacity: 0;
+  left: 7px;
+  bottom: 26px;
+}
+
+.m_albums_container .m_album_container .info .count,
+.m_albums_container .m_album_container .info .author,
+.ids_photos_container .info .author,
+.ids_featured_photos_container .info .author,
+.ids_p_albums_container .info .author,
+.ids_albums_container .info .author,
+.ids_friends_photos .info .author{
+  color: #FFFFFF;
+  font-size: 11px;
+  margin-left: 7px;
+}
+
+.m_albums_container .m_album_container .info .count a,
+.m_albums_container .m_album_container .info .author a,
+.ids_photos_container .info .author a,
+.ids_featured_photos_container .info .author a,
+.ids_p_albums_container .info .author a,
+.ids_albums_container .info .author a,
+.ids_friends_photos .info .author a {
+  color: #FFFFFF;
+}
+
+.ids_photos_container .info .albums_title,
+.ids_featured_photos_container .info .albums_title,
+.ids_p_albums_container .info .albums_title,
+.ids_albums_container .info .albums_title,
+.ids_friends_photos .info .albums_title {
+  color: #ffffff;
+  margin-left: 7px;
+}
+
+.ids_photos_container .info .comments,
+.ids_featured_photos_container .info .comments,
+.ids_p_albums_container .info .comments,
+.ids_albums_container .info .comments,
+.ids_friends_photos .info .comments {
+  float: right;
+  width: 40px;
+  margin-left: 12px;
+  color: #ffffff;
+}
+
+.ids_photos_container .info .likes,
+.ids_featured_photos_container .info .likes,
+.ids_p_albums_container .info .likes,
+.ids_albums_container .info .likes,
+.ids_friends_photos .info .likes {
+  float: right;
+  color: #ffffff;
+}
+
+.ids_photos_container .ids_loading,
+.ids_albums_container .ids_loading{
+  margin: auto;
+  margin-top: 20px;
+  width: 100px;
+}
+
+.ids_photos_container .ids_loading_2,
+.ids_albums_container .ids_loading_2{
+  margin: auto;
+  margin-top: 20px;
+  width: 100px;
+  display: none;
+}
+
+.ids_photos_container .headline,
+.ids_albums_container .headline {
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.ids_photos_container .ids_albums_categories,
+.ids_albums_container .ids_albums_categories {
+  display: inline-block;
+  margin-bottom: 15px;
+  width: 70%;
+}
+
+.ids_photos_container .ids_albums_categories .category_item,
+.ids_albums_container .ids_albums_categories .category_item {
+  border-left: 1px solid #DDDDDD;
+  margin-left: 9px;
+  padding-left: 12px;
+}
+
+.ids_photos_container .ids_albums_categories .recent,
+.ids_albums_container .ids_albums_categories .recent {
+  border: medium none;
+  margin: 0;
+  padding: 0;
+}
+
+.ids_photos_container .ids_albums_categories .active a,
+.ids_albums_container .ids_albums_categories .active a {
+  color: #555555;
+  font-weight: bold;
+  cursor: default;
+}
+
+.ids_photos_container .ids_albums_categories .active a:hover,
+.ids_albums_container .ids_albums_categories .active a:hover {
+  text-decoration: none;
+}
+
+.ids_photos_container .form-search,
+.ids_albums_container .form-search {
+  display: inline-block;
+  float: right;
+  margin: -7px 0 0;
+  padding: 6px;
+}
+
+.ids_photos_container .form-search .input-append,
+.ids_albums_container .form-search .input-append {
+  margin-bottom: 0;
+  display: inline-block;
+  vertical-align: middle;
+  padding-top: 7px;
+}
+
+.ids_photos_container .form-search .search_btn,
+.ids_albums_container .form-search .search_btn {
+  border-radius: 0 14px 14px 0;
+  margin-left: -1px;
+  line-height: 16px;
+  border-color: #CDCDCD;
+  background-color: #F5F5F5;
+  background-image: linear-gradient(to bottom, #FFFFFF, #E6E6E6);
+  background-repeat: repeat-x;
+  border-image: none;
+  border-style: solid;
+  border-width: 1px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+  color: #333333;
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  font-size: 14px;
+  margin-bottom: 0;
+  padding: 2px 5px;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  height: 27px;
+}
+
+.ids_photos_container input.search-query,
+.ids_albums_container input.search-query {
+  border-radius: 14px 0 0 14px;
+  float: left;
+  font-size: 14px;
+  height: 16px;
+  line-height: 16px;
+  padding-bottom: 4px;
+  padding-left: 10px;
+  padding-top: 5px;
+  width: 160px;
+  color: #555555;
+}
+
+.ids_photos_container .form-search .icon_search,
+.ids_albums_container .form-search .icon_search {
+  background: url("/images/icon-search.png") no-repeat scroll 2px 0;
+}
+
+.ids_photos_container .form-search input[type="text"]:focus,
+.ids_albums_container .form-search input[type="text"]:focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.m_albums_container .m_album_container {
+    /*display: inline-block;*/
+    padding: 7px;
+    position: relative;
+    text-align: center;
+}
+.m_albums_container .m_album_container .albums {
+    box-shadow: 0 0 2px rgba(51, 51, 51, 0.4);
+    width: 140px;
+    height: 106px;
+    padding: 7px;
+}
+.m_albums_container .m_album_container .info {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    padding: 2px 0;
+    width: 140px;
+    position: absolute;
+    opacity: 0;
+    left: 14px;
+    bottom: 17px;
+}
+
+.m_albums_container .m_album_container .info .count {
+    float: right;
+    margin-right: 10px;
+    margin-top: 1px;
+}
+.m_albums_container .title {
+    /*line-height: 24px;*/
+    /*overflow: hidden;*/
+    /*text-overflow: clip;*/
+}
+
+.ids_albums_container .ids_albums {
+  max-height: 108px;
+  box-shadow: 0 0 2px rgba(51, 51, 51, 0.4);
+  padding: 7px;
+}
+
+.ids_albums_container .scroll_albums {
+  margin: 4px;
+  max-height: 108px;
+}
+
+.ids_advanced_form.quick #album-wrapper,
+.ids_advanced_form.quick #search-wrapper,
+.ids_advanced_form.quick #auth_view-wrapper,
+.ids_advanced_form.quick #auth_comment-wrapper,
+.ids_advanced_form.quick #auth_tag-wrapper {
+  display: none !important;
+}
+.ids_advanced_form #options-element {
+  text-align: right;
+}
+.ids_advanced_form #options-wrapper {
+  position: absolute;
+  right: 0;
+  text-align: right;
+  top: 45px;
+}
+.ids_advanced_form .global_form > div > div {
+  position: relative;
+}
+.ids_advanced_form.quick #headv_quick,
+.ids_advanced_form #headv_advanced {
+  color:$theme_font_color;
+}
+.ids_advanced_form.quick #headv_advanced {
+  color:$theme_link_color;
+}
+#global_page_timeline-profile-index .ids_advanced_albums_content .layout_headvancedalbum_browse_photos .headline,
+#global_page_timeline-profile-index .ids_advanced_albums_content .layout_headvancedalbum_browse_photos .ids_albums_categories,
+#global_page_timeline-profile-index .ids_advanced_albums_content .layout_headvancedalbum_browse_photos .form-search,
+#global_page_timeline-profile-index .ids_advanced_albums_content .layout_headvancedalbum_browse_photos .ids_photos_loading,
+#global_page_timeline-profile-index .ids_advanced_albums_content .layout_headvancedalbum_browse_photos .ids_loading{
+    display: none;
+}
+#ids_photos_viewmore:link,
+#ids_photos_viewmore:active {
+  background-color: $theme_border_color;
+  display: block;
+  margin: 20px 0;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+#ids_photos_viewmore:hover {
+  text-decoration: none;
+}
+
+.icon_photos_sort {
+  background-image: url("/images/images/sort.png");
+}
+
+.ids_photos_container .tip {
+  float: left;
+}
+
+.ids_friends_photos .photo_container {
+  max-width: 100%;
+}
+.ids_friends_photos .photo_container > a {
+  max-width: 100%;
+}
+.ids_friends_photos .photo_container > a > img {
+  max-width: 100%;
+}
+
+.layout_headvancedalbum_friends_albums {
+  overflow: hidden;
+  margin:10px 0;
+}
+.layout_headvancedalbum_friends_photos {
+  overflow: hidden;
+  margin:10px 0;
+}
+.layout_headvancedalbum_friends_albums .m_albums_container > ul {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.ids_advanced_albums_see_more,
+.ids_advanced_albums_loading {
+  float: right;
+  font-size: 9pt;
+  margin: 5px 0;
+}
+
+.layout_headvancedalbum_popular_photos,
+.layout_headvancedalbum_popular_albums,
+.layout_headvancedalbum_featured_photos,
+.layout_headvancedalbum_featured_albums {
+    margin-bottom: 15px;
+}
+
+.ids_albums_container .albums_title {
+  text-align: center;
+  display: block;
+}
+
+
+
+
+.layout_headvancedalbum_featured_photos .li_line {
+  display: none;
+}
+.layout_headvancedalbum_featured_photos .li_line0 {
+  display: block;
+}
+.layout_headvancedalbum_popular_photos .li_line {
+  display: none;
+}
+.layout_headvancedalbum_popular_photos .li_line0 {
+  display: block;
+}
+
+
+
+
+
+
+
+.hapPhotos {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+.hapPhotos > li {
+  float: left;
+  margin: 0 6px 12px 0;
+  position: relative;
+}
+.hapPhotos > li.no_visible {
+  visibility: hidden;
+}
+.hapPhotos > li .photo {
+}
+.hapPhotos > li .photo a {
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+}
+.hapPhotos > li .photo a img {
+  vertical-align: middle;
+}
+.hapPhotos .caption,
+.hapThumbs .caption {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+
+
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+
+}
+.hapPhotos .caption .content,
+.hapThumbs .caption .content
+{
+  padding:5px;
+  overflow: hidden;
+}
+.hapPhotos > li:hover .caption,
+.hapThumbs > li:hover .caption {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+
+}
+.hapPhotos .hover-caption,
+.hapThumbs .hover-caption {
+  background-color: #000;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+  width: 100%;
+  overflow: hidden;
+
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+
+}
+.hapPhotos .hover-caption .content,
+.hapThumbs .hover-caption .content{
+  padding:5px;
+  overflow: hidden;
+}
+.hapPhotos > li:hover .hover-caption,
+.hapThumbs > li:hover .hover-caption {
+  opacity: 0.9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: alpha(opacity=90);
+
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+
+}
+.hapPhotos .hover-caption,
+.hapPhotos .hover-caption div,
+.hapPhotos .caption,
+.hapPhotos .caption div,
+.hapThumbs .hover-caption,
+.hapThumbs .hover-caption div,
+.hapThumbs .caption,
+.hapThumbs .caption div{
+  color:#FFF;
+  font-size: 9pt;
+  text-shadow: #000 1px 1px 0;
+}
+.hapPhotos .hover-caption a,
+.hapPhotos .hover-caption a:link
+.hapPhotos .hover-caption a:active,
+.hapPhotos .caption a,
+.hapPhotos .caption a:link
+.hapPhotos .caption a:active,
+.hapThumbs .hover-caption a,
+.hapThumbs .hover-caption a:link
+.hapThumbs .hover-caption a:active,
+.hapThumbs .caption a,
+.hapThumbs .caption a:link
+.hapThumbs .caption a:active{
+  color:#EEE;
+}
+.hapPhotos .hover-caption a:hover,
+.hapPhotos .caption a:hover,
+.hapThumbs .hover-caption a:hover,
+.hapThumbs .caption a:hover {
+  color:#FFF;
+}
+.hapPhotos .info,
+.hapThumbs .info{
+  float: right;
+}
+.hapPhotos .title,
+.hapThumbs .title{
+  float: left;
+}
+.hapPhotos .comment-count {
+
+}
+.hapPhotos .like-count {
+  margin-left: 10px;
+}
+
+.hapThumbs .photo-count {
+
+}
+
+.hapThumbs {
+  overflow: hidden;
+}
+.hapThumbs > li {
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  height: 155px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  overflow: hidden;
+  padding: 5px;
+  text-align: center;
+  width: 155px;
+}
+.hapThumbs .thumbs_photo {
+  box-shadow: 0 0 2px rgba(51, 51, 51, 0.4);
+  display: block;
+  padding: 7px;
+  position: relative;
+  text-align: left;
+  margin-bottom: 5px;
+}
+.hapThumbs .thumbs_photo span {
+  background-position: center 50%;
+   background-repeat: no-repeat;
+   display: block;
+   height: 106px;
+   width: 140px;
+}
+.hapThumbs .info {
+
+}
+.hapThumbs .thumbs_title {
+}
+
+
+#hapNavigation {
+   margin: 10px 0;
+    overflow: hidden;
+}
+#hapNavigation > .title {
+  float: left;
+}
+#hapNavigation .categories {
+    float: left;
+    /*margin-top: 10px;*/
+    overflow: hidden;
+    padding: 0 20px;
+    width: 80%;
+}
+#hapNavigation.photo .categories {
+	width: 850px;
+}
+#hapNavigation #hapSearchForm {
+  float: right;
+  margin-top: 5px;
+  overflow: hidden;
+}
+#hapNavigation .categories > li {
+  display: inline-block;
+  margin-left: 9px;
+  padding-left: 11px;
+}
+#hapNavigation .categories > li + li {
+  border-left: 1px solid #DDDDDD;
+}
+#hapNavigation .categories > li a {
+
+}
+#hapNavigation .categories > li a.active {
+  font-weight: bold;
+  color:$theme_font_color !important;
+}
+#hapSearchForm input{
+  -moz-border-radius: 14px 0 0 14px;
+  -webkit-border-radius: 14px 0 0 14px;
+  border-radius: 14px 0 0 14px;
+  border-right: medium none;
+  float: left;
+  font-size: 12px;
+  height: 22px;
+  line-height: 16px;
+  padding-bottom: 4px;
+  padding-left: 10px;
+  padding-top: 4px;
+  width: 160px;
+}
+#hapSearchForm a {
+  -moz-border-radius: 0 14px 14px 0;
+  -webkit-border-radius: 0 14px 14px 0;
+  border-radius: 0 14px 14px 0;
+  line-height: 16px;
+  color: $theme_font_color !important;
+  font-size: 11px;
+}
+
+#hapSearchForm input:-moz-placeholder{
+    color: #999999;
+}
+
+.hapLoader {
+  background-image: url("../images/loader128.gif");
+  background-color: #FFF;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -moz-border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  position: fixed;
+  width: 150px;
+  z-index: 100;
+  bottom: -100px;
+  height: 30px;
+  left: 50%;
+  margin-left: -75px;
+  -moz-transition: bottom 1s;
+  -webkit-transition: bottom 1s;
+  transition: bottom 1s;
+
+}
+.hapLoader.active {
+  bottom: 50px;
+  -moz-transition: bottom 1s;
+  -webkit-transition: bottom 1s;
+  transition: bottom 1s;
+}
+
+#viewMore:link,
+#viewMore:active {
+  background-color: $theme_border_color;
+  display: block;
+  padding: 10px 0;
+  text-align: center;
+  width: 100%;
+}
+#viewMore:hover {
+  background-color: $theme_border_medium_color;
+}
+
+
+.hap-btn {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #bbbbbb;
+  *border: 0;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #a2a2a2;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.hap-btn:hover,
+.hap-btn:active,
+.hap-btn.active,
+.hap-btn.disabled,
+.hap-btn[disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+
+.hap-btn:active,
+.hap-btn.active {
+  background-color: #cccccc \9;
+}
+
+.hap-btn:first-child {
+  *margin-left: 0;
+}
+
+.hap-btn:hover {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+     -moz-transition: background-position 0.1s linear;
+       -o-transition: background-position 0.1s linear;
+          transition: background-position 0.1s linear;
+}
+
+.hap-btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.hap-btn.active,
+.hap-btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.hapPhotos .inactive_rate_list{
+float: right;
+}
+.featured_photos h3{
+margin-bottom: 6px;
+}
