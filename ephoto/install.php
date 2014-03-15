@@ -1,29 +1,29 @@
 <?php
 $config = OW::getConfig();
-if ( !$config->configExists('advancedphoto', 'photofeature_per_page') )
+if ( !$config->configExists('ephoto', 'photofeature_per_page') )
 {
-    $config->addConfig('advancedphoto', 'photofeature_per_page', 5, 'Featured Photos Count');
+    $config->addConfig('ephoto', 'photofeature_per_page', 5, 'Featured Photos Count');
 }
 
-if ( !$config->configExists('advancedphoto', 'uninstall_inprogress') )
+if ( !$config->configExists('ephoto', 'uninstall_inprogress') )
 {
-    $config->addConfig('advancedphoto', 'uninstall_inprogress', 0, 'Plugin is being uninstalled');
+    $config->addConfig('ephoto', 'uninstall_inprogress', 0, 'Plugin is being uninstalled');
 }
 
-if ( !$config->configExists('advancedphoto', 'uninstall_cron_busy') )
+if ( !$config->configExists('ephoto', 'uninstall_cron_busy') )
 {
-    $config->addConfig('advancedphoto', 'uninstall_cron_busy', 0, 'Uninstall queue is busy');
+    $config->addConfig('ephoto', 'uninstall_cron_busy', 0, 'Uninstall queue is busy');
 }
 
-if ( !$config->configExists('advancedphoto', 'maintenance_mode_state') )
+if ( !$config->configExists('ephoto', 'maintenance_mode_state') )
 {
     $state = (int) $config->getValue('base', 'maintenance');
-    $config->addConfig('advancedphoto', 'maintenance_mode_state', $state, 'Stores site maintenance mode config before plugin uninstallation');
+    $config->addConfig('ephoto', 'maintenance_mode_state', $state, 'Stores site maintenance mode config before plugin uninstallation');
 }
 
-OW::getPluginManager()->addPluginSettingsRouteName('advancedphoto', 'advancedphoto_admin_config');
+OW::getPluginManager()->addPluginSettingsRouteName('ephoto', 'ephoto_admin_config');
 
-OW::getPluginManager()->addUninstallRouteName('advancedphoto', 'advancedphoto_uninstall');
+OW::getPluginManager()->addUninstallRouteName('ephoto', 'ephoto_uninstall');
 
 $sql = "CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "photo_categories` (
   `id` int(11) NOT NULL auto_increment,
@@ -51,5 +51,5 @@ OW::getDbo()->query($sql);
 $sql = " ALTER TABLE `" . OW_DB_PREFIX . "photo_album` ADD category_id int(11) default 0; ";
 OW::getDbo()->query($sql);
 
-$path = OW::getPluginManager()->getPlugin('advancedphoto')->getRootDir() . 'langs.zip';
-OW::getLanguage()->importPluginLangs($path, 'advancedphoto');
+$path = OW::getPluginManager()->getPlugin('ephoto')->getRootDir() . 'langs.zip';
+OW::getLanguage()->importPluginLangs($path, 'ephoto');

@@ -1,6 +1,6 @@
 <?php
 
-class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
+class EPHOTO_CTRL_Photo extends OW_ActionController
 {
 	//photo
 	public static $isNext = false;
@@ -53,14 +53,14 @@ class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
 		
         $validLists = array('photo', 'album', 'tagged');
         $classes = array('', '', 'ow_ic_tag');     
-		$urls = array(OW::getRouter()->urlForRoute('photo_list_index'), OW::getRouter()->urlForRoute('photo_list_albums'), ''); 
-		$titles = array($language->text('advancedphoto', 'photos'), $language->text('advancedphoto', 'albums'), $language->text('photo', 'menu_tagged'));	
+		$urls = array(OW::getRouter()->urlForRoute('ephoto_list_index'), OW::getRouter()->urlForRoute('ephoto_list_albums'), ''); 
+		$titles = array($language->text('photo', 'photos'), $language->text('photo', 'albums'), $language->text('ephoto', 'menu_tagged'));	
 
 		if( $user = OW::getUser()->getUserObject()){
         	$validLists[3] = "myalbum";
         	$classes[3] = "";
-        	$urls[3] = OW::getRouter()->urlForRoute('photo_user_albums', array('user' => $user->username));
-        	$titles[3] = $language->text('advancedphoto', 'my_albums');
+        	$urls[3] = OW::getRouter()->urlForRoute('ephoto_user_albums', array('user' => $user->username));
+        	$titles[3] = $language->text('ephoto', 'my_albums');
         }
 		
         $checkPrivacy = PHOTO_BOL_PhotoService::getInstance()->countPhotos('featured');
@@ -126,7 +126,7 @@ class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
 		}
 		
 		$categories = array();
-		foreach (ADVANCEDPHOTO_BOL_CategoryService::getInstance()->getCategoriesList() as $key => $item) {
+		foreach (EPHOTO_BOL_CategoryService::getInstance()->getCategoriesList() as $key => $item) {
 			$categories[$key] = $item;
         }
         $this->assign('categories', $categories);
@@ -137,7 +137,7 @@ class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
         OW::getDocument()->setTitle(OW::getLanguage()->text('photo', 'meta_title_photo_'.$params['listType']));
         OW::getDocument()->setDescription(OW::getLanguage()->text('photo', 'meta_description_photo_'.$params['listType']));
 		
-		OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('advancedphoto')->getStaticJsUrl() . 'hap.min.js');
+		OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('ephoto')->getStaticJsUrl() . 'hap.min.js');
 		$script = '
 			//var hap = new hap();
 			hap.initialize({request_url: "", max_width: 220});			  
@@ -172,14 +172,14 @@ class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
 	private function prepareMarkup( array $params )
     {
 		
-        $cmp = new ADVANCEDPHOTO_CMP_PhotoList($params);
+        $cmp = new EPHOTO_CMP_PhotoList($params);
     
         /* @var $document OW_AjaxDocument */
         $document = OW::getDocument();
 
         $markup = array();
-		$markup['is_next'] = ADVANCEDPHOTO_CTRL_Photo::$isNext;
-		$markup['item_count'] = ADVANCEDPHOTO_CTRL_Photo::$item_count;
+		$markup['is_next'] = EPHOTO_CTRL_Photo::$isNext;
+		$markup['item_count'] = EPHOTO_CTRL_Photo::$item_count;
         $markup['body'] = $cmp->render();
 
         $onloadScript = $document->getOnloadScript();
@@ -239,12 +239,12 @@ class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
 		}
 		
 		$categories = array();
-		foreach (ADVANCEDPHOTO_BOL_CategoryService::getInstance()->getCategoriesList() as $key => $item) {
+		foreach (EPHOTO_BOL_CategoryService::getInstance()->getCategoriesList() as $key => $item) {
 			$categories[$key] = $item;
         }
         $this->assign('categories', $categories);
 		
-        OW::getDocument()->setTitle(OW::getLanguage()->text('advancedphoto', 'meta_title_photo_albums'));
+        OW::getDocument()->setTitle(OW::getLanguage()->text('ephoto', 'meta_title_photo_albums'));
 		
 		
 		OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('base')->getStaticJsUrl().'jquery.bbq.min.js');
@@ -295,14 +295,14 @@ class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
 	private function prepareAlbumMarkup( array $params )
     {
 
-        $cmp = new ADVANCEDPHOTO_CMP_AlbumList($params);
+        $cmp = new EPHOTO_CMP_AlbumList($params);
     
         /* @var $document OW_AjaxDocument */
         $document = OW::getDocument();
 
         $markup = array();
-		$markup['is_next'] = ADVANCEDPHOTO_CTRL_Photo::$isNextAlbum;
-		$markup['item_count'] = ADVANCEDPHOTO_CTRL_Photo::$item_count_album;
+		$markup['is_next'] = EPHOTO_CTRL_Photo::$isNextAlbum;
+		$markup['item_count'] = EPHOTO_CTRL_Photo::$item_count_album;
         $markup['body'] = $cmp->render();
 
         $onloadScript = $document->getOnloadScript();
@@ -351,7 +351,7 @@ class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
 
         $this->menu->getElement('tagged')->setActive(true);
 
-        $this->setTemplate(OW::getPluginManager()->getPlugin('advancedphoto')->getCtrlViewDir() . 'photo_view_list-tagged.html');
+        $this->setTemplate(OW::getPluginManager()->getPlugin('ephoto')->getCtrlViewDir() . 'photo_view_list-tagged.html');
 
         $listUrl = OW::getRouter()->urlForRoute('view_tagged_photo_list_st');
 
@@ -372,7 +372,7 @@ class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
             $this->assign('tag', $tag);
             OW::getDocument()->setTitle(OW::getLanguage()->text('photo', 'meta_title_photo_tagged_as', array('tag' => $tag)));
             OW::getDocument()->setDescription(OW::getLanguage()->text('photo', 'meta_description_photo_tagged_as', array('tag' => $tag)));
-			OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('advancedphoto')->getStaticJsUrl() . 'hap.min.js');
+			OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('ephoto')->getStaticJsUrl() . 'hap.min.js');
 			$script = '
 				hap.initialize({request_url: "'.  OW::getRouter()->urlForRoute('photo_list_index') .'", max_width: 220, listType: "tagged", tag: "'. $tag .'"});			  
 			';
@@ -697,7 +697,7 @@ class ADVANCEDPHOTO_CTRL_Photo extends OW_ActionController
 
             OW::getDocument()->addOnloadScript($script);
         }
-        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('advancedphoto')->getStaticJsUrl() . 'hap.min.js');
+        OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('ephoto')->getStaticJsUrl() . 'hap.min.js');
 		$script = '
 			//var hap = new hap();
 			hap.initialize({request_url: "", max_width: 220});			  
@@ -775,11 +775,11 @@ class albumEditForm extends Form
         // category
         $categoryField = new Selectbox('category');
     	$categories = array();
-		foreach (ADVANCEDPHOTO_BOL_CategoryService::getInstance()->getCategoriesList() as $key => $item) {
+		foreach (EPHOTO_BOL_CategoryService::getInstance()->getCategoriesList() as $key => $item) {
 			$categories[$item->id] = $item->name;
         }
         $categoryField->setOptions($categories);
-        $this->addElement($categoryField->setLabel($language->text('advancedphoto', 'category')));
+        $this->addElement($categoryField->setLabel($language->text('ephoto', 'category')));
         
         $submit = new Submit('save');
         $submit->setValue($language->text('photo', 'btn_edit'));

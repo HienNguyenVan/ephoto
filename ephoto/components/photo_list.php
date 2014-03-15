@@ -1,6 +1,6 @@
 <?php
 
-class ADVANCEDPHOTO_CMP_PhotoList extends OW_Component
+class EPHOTO_CMP_PhotoList extends OW_Component
 {
     /**
      * @var PHOTO_BOL_PhotoService 
@@ -8,9 +8,9 @@ class ADVANCEDPHOTO_CMP_PhotoList extends OW_Component
     private $photoService;
 	
 	/**
-     * @var ADVANCEDPHOTO_BOL_PhotoService 
+     * @var EPHOTO_BOL_PhotoService 
      */
-    private $advancePhotoService;
+    private $ePhotoService;
 	
     /**
      * Class constructor
@@ -28,7 +28,7 @@ class ADVANCEDPHOTO_CMP_PhotoList extends OW_Component
 		$this->assign('idPrefix', $params['idPrefix']);
 		$this->assign('format', isset($params['format'])? $params['format'] : '');
 		$this->photoService = PHOTO_BOL_PhotoService::getInstance();
-		$this->advancePhotoService = ADVANCEDPHOTO_BOL_PhotoService::getInstance();
+		$this->ePhotoService = EPHOTO_BOL_PhotoService::getInstance();
 		
 		$page = !empty($_GET['page']) && (int) $_GET['page'] ? abs((int) $_GET['page']) : 1;
 	
@@ -45,13 +45,13 @@ class ADVANCEDPHOTO_CMP_PhotoList extends OW_Component
 			$records = $this->photoService->countTaggedPhotos($tag);
 		}else if (is_numeric($listType)){
 			$checkPrivacy = !OW::getUser()->isAuthorized('photo');
-			$photos = $this->advancePhotoService->getPhotoListCategory($listType, $page, $photosPerPage, $checkPrivacy);
-			$records = $this->advancePhotoService->countPhotoListCategory($listType, $checkPrivacy);
+			$photos = $this->ePhotoService->getPhotoListCategory($listType, $page, $photosPerPage, $checkPrivacy);
+			$records = $this->ePhotoService->countPhotoListCategory($listType, $checkPrivacy);
 		}else if($listType == 'featured'){
 			$checkPrivacy = false;
-			$photosPerPage = OW::getConfig()->getValue('advancedphoto', 'photofeature_per_page');
-			$photos = $this->advancePhotoService->findPhotoList($listType, $page, $photosPerPage, $checkPrivacy);
-			$records = $this->advancePhotoService->countPhotosFeature($listType, $checkPrivacy);
+			$photosPerPage = OW::getConfig()->getValue('ephoto', 'photofeature_per_page');
+			$photos = $this->ePhotoService->findPhotoList($listType, $page, $photosPerPage, $checkPrivacy);
+			$records = $this->ePhotoService->countPhotosFeature($listType, $checkPrivacy);
 		}
 		else
 		{
@@ -85,8 +85,8 @@ class ADVANCEDPHOTO_CMP_PhotoList extends OW_Component
 			// Paging
 			$pages = (int) ceil($records / $photosPerPage);
 			
-			ADVANCEDPHOTO_CTRL_Photo::$isNext = $result['isNext'] = $isNext = ($pages > $page) ? true : false;
-			ADVANCEDPHOTO_CTRL_Photo::$item_count = $result['item_count'] = count($aPhotos);
+			EPHOTO_CTRL_Photo::$isNext = $result['isNext'] = $isNext = ($pages > $page) ? true : false;
+			EPHOTO_CTRL_Photo::$item_count = $result['item_count'] = count($aPhotos);
 			
 			
 			$this->assign('photos', $aPhotos);

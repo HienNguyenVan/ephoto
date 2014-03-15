@@ -1,15 +1,15 @@
 <?php
 
-final class ADVANCEDPHOTO_BOL_PhotoAlbumService
+final class EPHOTO_BOL_PhotoAlbumService
 {
     /**
-     * @var ADVANCEDPHOTO_BOL_PhotoAlbumDao
+     * @var EPHOTO_BOL_PhotoAlbumDao
      */
-    private $advancedphotoAlbumDao;
+    private $ephotoAlbumDao;
     /**
-     * @var ADVANCEDPHOTO_BOL_PhotoDao
+     * @var EPHOTO_BOL_PhotoDao
      */
-    private $advancedphotoDao;
+    private $ephotoDao;
 	/**
      * @var PHOTO_BOL_PhotoAlbumService
      */
@@ -40,8 +40,8 @@ final class ADVANCEDPHOTO_BOL_PhotoAlbumService
      */
     private function __construct()
     {
-        $this->advancedphotoAlbumDao = ADVANCEDPHOTO_BOL_PhotoAlbumDao::getInstance();
-        $this->advancedphotoDao = ADVANCEDPHOTO_BOL_PhotoDao::getInstance();
+        $this->ephotoAlbumDao = EPHOTO_BOL_PhotoAlbumDao::getInstance();
+        $this->ephotoDao = EPHOTO_BOL_PhotoDao::getInstance();
 		$this->albumService = PHOTO_BOL_PhotoAlbumService::getInstance();
     }
     /**
@@ -52,7 +52,7 @@ final class ADVANCEDPHOTO_BOL_PhotoAlbumService
      */
     public function countAlbums( $listType, $search = '' )
     {
-        return $this->advancedphotoAlbumDao->countAlbums($listType, $search);
+        return $this->ephotoAlbumDao->countAlbums($listType, $search);
     }
 
     /**
@@ -65,7 +65,7 @@ final class ADVANCEDPHOTO_BOL_PhotoAlbumService
      */
     public function findAlbumList( $listType, $page, $limit, $search = '' )
     {
-        $albums = $this->advancedphotoAlbumDao->getAlbumList($listType, $page, $limit, $search);
+        $albums = $this->ephotoAlbumDao->getAlbumList($listType, $page, $limit, $search);
 
         $list = array();
 

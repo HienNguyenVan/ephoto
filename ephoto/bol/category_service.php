@@ -1,5 +1,5 @@
 <?php
-class ADVANCEDPHOTO_BOL_CategoryService {
+class EPHOTO_BOL_CategoryService {
 
     private static $classInstance;
 
@@ -16,35 +16,35 @@ class ADVANCEDPHOTO_BOL_CategoryService {
     }
 
     public function getCategoriesList() {
-        return ADVANCEDPHOTO_BOL_CategoryDao::getInstance()->findAll();
+        return EPHOTO_BOL_CategoryDao::getInstance()->findAll();
     }
 
     public function addCategory($name, $description) {
-        if (ADVANCEDPHOTO_BOL_CategoryDao::getInstance()->isDuplicate($name)) {
+        if (EPHOTO_BOL_CategoryDao::getInstance()->isDuplicate($name)) {
             return false;
         } else {
-            $category = new ADVANCEDPHOTO_BOL_Category();
+            $category = new EPHOTO_BOL_Category();
             $category->name = $name;
             $category->description = $description;
-            ADVANCEDPHOTO_BOL_CategoryDao::getInstance()->save($category);
+            EPHOTO_BOL_CategoryDao::getInstance()->save($category);
             return $category->id;
         }
     }
 
     public function deleteCategory($id) {
-        ADVANCEDPHOTO_BOL_CategoryDao::getInstance()->deleteById($id);
+        EPHOTO_BOL_CategoryDao::getInstance()->deleteById($id);
     }
 
     public function isDuplicate($category) {
-        return ADVANCEDPHOTO_BOL_CategoryDao::getInstance()->isDuplicate($category);
+        return EPHOTO_BOL_CategoryDao::getInstance()->isDuplicate($category);
     }
 
     public function getCategoryName($id) {
-        return ADVANCEDPHOTO_BOL_CategoryDao::getInstance()->findById($id)->name;
+        return EPHOTO_BOL_CategoryDao::getInstance()->findById($id)->name;
     }
 
     public function getCategoryId($category) {
-        return ADVANCEDPHOTO_BOL_CategoryDao::getInstance()->getCategoryId($category);
+        return EPHOTO_BOL_CategoryDao::getInstance()->getCategoryId($category);
     }
 
 }

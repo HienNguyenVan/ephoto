@@ -1,6 +1,6 @@
 <?php
 
-final class ADVANCEDPHOTO_BOL_PhotoService
+final class EPHOTO_BOL_PhotoService
 {
     const EVENT_AFTER_DELETE = 'photo.after_delete';
     const EVENT_AFTER_EDIT = 'photo.after_edit';
@@ -16,9 +16,9 @@ final class ADVANCEDPHOTO_BOL_PhotoService
     private $photoService;
 	
 	/**
-     * @var ADVANCEDPHOTO_BOL_PhotoDao
+     * @var EPHOTO_BOL_PhotoDao
      */
-	private $advancedphotoDao;
+	private $ephotoDao;
 	
     /**
      * @var PHOTO_BOL_PhotoFeaturedDao
@@ -37,7 +37,7 @@ final class ADVANCEDPHOTO_BOL_PhotoService
      */
     private function __construct()
     {
-        $this->advancedphotoDao = ADVANCEDPHOTO_BOL_PhotoDao::getInstance();
+        $this->ephotoDao = EPHOTO_BOL_PhotoDao::getInstance();
 		$this->photoDao = PHOTO_BOL_PhotoDao::getInstance();
 		$this->photoService = PHOTO_BOL_PhotoService::getInstance();
     }
@@ -61,7 +61,7 @@ final class ADVANCEDPHOTO_BOL_PhotoService
     public function getPhotoListCategory( $category, $page, $limit, $checkPrivacy)
     {
         
-        $photos = $this->advancedphotoDao->getPhotoListCategory($category, $page, $limit, $checkPrivacy);
+        $photos = $this->ephotoDao->getPhotoListCategory($category, $page, $limit, $checkPrivacy);
 
         if ( $photos )
         {
@@ -82,7 +82,7 @@ final class ADVANCEDPHOTO_BOL_PhotoService
      */
     public function countPhotoListCategory( $category, $checkPrivacy = true )
     {
-        return $this->advancedphotoDao->countPhotos($category, $checkPrivacy);
+        return $this->ephotoDao->countPhotos($category, $checkPrivacy);
     }
 	
 	 /**
@@ -104,7 +104,7 @@ final class ADVANCEDPHOTO_BOL_PhotoService
             {
                 return array();
             }
-            $photoArr = $this->advancedphotoDao->findPhotoInfoListByIdList(array_keys($topRatedList));
+            $photoArr = $this->ephotoDao->findPhotoInfoListByIdList(array_keys($topRatedList));
 
             $photos = array();
 
@@ -119,7 +119,7 @@ final class ADVANCEDPHOTO_BOL_PhotoService
         }
         else
         {
-            $photos = $this->advancedphotoDao->getPhotoList($type, $page, $limit, $checkPrivacy);
+            $photos = $this->ephotoDao->getPhotoList($type, $page, $limit, $checkPrivacy);
         }
 
         if ( $photos )
@@ -145,6 +145,6 @@ final class ADVANCEDPHOTO_BOL_PhotoService
             return BOL_RateService::getInstance()->findMostRatedEntityCount('photo');
         }
 
-        return $this->advancedphotoDao->countPhotosFeature($type, $checkPrivacy);
+        return $this->ephotoDao->countPhotosFeature($type, $checkPrivacy);
     }
 }
