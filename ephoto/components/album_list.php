@@ -1,10 +1,10 @@
 <?php
 
-class ADVANCEDPHOTO_CMP_AlbumList extends OW_Component
+class EPHOTO_CMP_AlbumList extends OW_Component
 {
 	
 	/**
-     * @var ADVANCEDPHOTO_BOL_AlbumService 
+     * @var EPHOTO_BOL_AlbumService 
      */
     private $advanceAlbumService;
 	
@@ -22,7 +22,7 @@ class ADVANCEDPHOTO_CMP_AlbumList extends OW_Component
        	$listType = $params['listType'];
 		$this->assign('listType', $listType);
 		$this->assign('format', isset($params['format'])? $params['format'] : '');
-		$this->advanceAlbumService = ADVANCEDPHOTO_BOL_PhotoAlbumService::getInstance();
+		$this->advanceAlbumService = EPHOTO_BOL_PhotoAlbumService::getInstance();
 		
 		$serach = isset($params['search']) ? $params['search'] : '';
 		
@@ -60,8 +60,8 @@ class ADVANCEDPHOTO_CMP_AlbumList extends OW_Component
 			$this->assign('heightConfig', $config->getValue('photo', 'preview_image_height'));
 			
 			
-			ADVANCEDPHOTO_CTRL_Photo::$isNextAlbum = $result['isNext'] = $isNext = ($pages > $page) ? true : false;
-			ADVANCEDPHOTO_CTRL_Photo::$item_count_album = $result['item_count'] = count($aAlbums);
+			EPHOTO_CTRL_Photo::$isNextAlbum = $result['isNext'] = $isNext = ($pages > $page) ? true : false;
+			EPHOTO_CTRL_Photo::$item_count_album = $result['item_count'] = count($aAlbums);
 
 			$this->assign('no_content', false);
 		}

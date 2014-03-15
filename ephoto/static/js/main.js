@@ -7,7 +7,7 @@
 			'gif': 'image/gif'
 		};
 
-	zip.workerScriptsPath = 'js/'
+	zip.workerScriptsPath = '/ow_static/plugins/ephoto/js/lib/'
 
 	function onerror(message) {
 		alert(message);

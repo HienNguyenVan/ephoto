@@ -1,5 +1,5 @@
 <?php
-class ADVANCEDPHOTO_BOL_PhotoAlbumDao extends OW_BaseDao
+class EPHOTO_BOL_PhotoAlbumDao extends OW_BaseDao
 {
 	const CACHE_TAG_ALBUM_LIST = 'album.list';
     /**
@@ -13,14 +13,14 @@ class ADVANCEDPHOTO_BOL_PhotoAlbumDao extends OW_BaseDao
     /**
      * Singleton instance.
      *
-     * @var ADVANCEDPHOTO_BOL_PhotoAlbumDao
+     * @var EPHOTO_BOL_PhotoAlbumDao
      */
     private static $classInstance;
 
     /**
      * Returns an instance of class (singleton pattern implementation).
      *
-     * @return ADVANCEDPHOTO_BOL_PhotoAlbumDao
+     * @return EPHOTO_BOL_PhotoAlbumDao
      */
     public static function getInstance()
     {
@@ -38,7 +38,7 @@ class ADVANCEDPHOTO_BOL_PhotoAlbumDao extends OW_BaseDao
      */
     public function getDtoClassName()
     {
-        return 'ADVANCEDPHOTO_BOL_PhotoAlbum';
+        return 'EPHOTO_BOL_PhotoAlbum';
     }
 
     /**
@@ -77,7 +77,7 @@ class ADVANCEDPHOTO_BOL_PhotoAlbumDao extends OW_BaseDao
      * @param string $listType
      * @param int $page
      * @param int $limit
-     * @return array of ADVANCEDPHOTO_BOL_PhotoAlbum
+     * @return array of EPHOTO_BOL_PhotoAlbum
      */
     public function getAlbumList( $listType, $page, $limit, $search = '' )
     {
