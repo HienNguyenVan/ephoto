@@ -1,6 +1,6 @@
 <?php
 
-class ADVANCEDPHOTO_BOL_CategoryDao extends OW_BaseDao {
+class EPHOTO_BOL_CategoryDao extends OW_BaseDao {
 
     protected function __construct() {
         parent::__construct();
@@ -17,11 +17,11 @@ class ADVANCEDPHOTO_BOL_CategoryDao extends OW_BaseDao {
     }
 
     public function getDtoClassName() {
-        return 'ADVANCEDPHOTO_BOL_Category';
+        return 'EPHOTO_BOL_Category';
     }
 
     public function getTableName() {
-        return OW_DB_PREFIX . 'photo_categories';
+        return OW_DB_PREFIX . 'ephoto_categories';
     }
 
     public function getCategoryId($category) {

@@ -844,3 +844,6 @@ float: right;
 .featured_photos h3{
 margin-bottom: 6px;
 }
+.photo-category {
+  max-width: 135px;
+}

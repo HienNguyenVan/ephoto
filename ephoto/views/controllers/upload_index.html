@@ -10,27 +10,6 @@ $("#button-all-albums").click(function(){
     window.location.assign("{$allAlbumsBtn.url}");
 });
 
-var showLayer = function (id) {
-    var els = document.getElementsByClassName('upload-step1'),
-        actionSession = document.getElementById('upload-action');
-
-    for (var i = 0, len = els.length; i < len; i++) {
-        var el = els[i];
-
-        if (el.id === id){
-            el.style.display = 'block';
-        } else {
-            el.style.display = 'none';
-        }
-    }
-
-    if (id) {
-        actionSession.style.display = 'block';
-    } else {
-        actionSession.style.display = 'none';
-    }
-};
-
 {/script}
 
 <div class="ow_upload_photo clearfix">
@@ -42,56 +21,124 @@ var showLayer = function (id) {
     {if $auth_msg}</div>{/if}
        
     {if !$auth_msg}
-    {if $advancedUpload}
         <div id="ow_photo_upload_menu">{$menu}</div>
         
         <div class="ow_photo_upload_page ow_automargin" id="page_upload_advanced">
-        <div id="ow_flash_photo_uploader">
+        <!--<div id="ow_flash_photo_uploader">
             <p>To view this page ensure that Adobe Flash Player version 10.0.0 or greater is installed.</p>
             <script type="text/javascript">
                 var pageHost = ((document.location.protocol == "https:") ? "https://" : "http://"); 
                 document.write('<a href="http://www.adobe.com/go/getflashplayer"><img src="' 
                 + pageHost + 'www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a>');
             </script> 
+        </div>-->
+            <center>
+                <div id="select-upload-type">
+                    <span>I would like to</span>
+                    <select onchange="javascript: showLayer(this.value, this.selectedIndex);" name="action">
+                        <option value="">- Select -</option>
+                        <option value="gallery">Upload a new Gallerie</option>
+                        <option value="gallery2">Add new Photos to existing Gallerie</option>
+                    </select>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div id="gallery" class="upload-step1" style="display: none;">
+                    <p>Please enter a descriptive title for your gallery:</p>
+                    <input type="text" id="gallery-title" name="decription" />
+                    <br />
+                    <div id="select-category">
+                    <strong>Category 1</strong>
+                    <select name="category1" class="photo-category">
+                        <option value="">- Select -</option>
+                        {foreach from=$categories item="category"}
+                            <option value="{$category.id}">{$category.name}</option>
+                        {/foreach}
+                    </select>
+                    <strong>Category 2</strong>
+                    <select name="category2" class="photo-category">
+                        <option value="">- Select -</option>
+                        {foreach from=$categories item="category"}
+                            <option value="{$category.id}">{$category.name}</option>
+                        {/foreach}
+                    </select>
+                    <strong>Category 3</strong>
+                    <select name="category3" class="photo-category">
+                        <option value="">- Select -</option>
+                        {foreach from=$categories item="category"}
+                            <option value="{$category.id}">{$category.name}</option>
+                        {/foreach}
+                    </select>
+                    </div>
+                </div>
+                <div id="gallery2" class="upload-step1" style="display: none;">
+                    <p>To which gallery would you like to add?</p>
+                    <select name="photo-gallery">
+                        <option value="">- Select -</option>
+                    </select>
+                </div>
+                <div id="upload-action" class="upload-step2" style="display: none;">
+                    <div><input type="file" name="file" id="file-input" /></div>
+                    <ul id="file-list"></ul>
+                    <img src="" id="image" alt="">
+                    <div>
+                        <input type="button" value="Reset" />
+                        <input type="button" id="upload-image-button" value="Submit" />
+                    </div>
+                </div>
+                <script>
+                    var data
+
+                    var showLayer = function (id, index) {
+                        var els = document.getElementsByClassName('upload-step1'),
+                            actionSession = document.getElementById('upload-action');
+
+                        for (var i = 0, len = els.length; i < len; i++) {
+                            var el = els[i];
+
+                            if (el.id === id){
+                                el.style.display = 'block';
+                            } else {
+                                el.style.display = 'none';
+                            }
+                        }
+
+                        $('#gallery-title').val('');
+
+                        if (id) {
+                            actionSession.style.display = 'block';
+                        } else {
+                            actionSession.style.display = 'none';
+                        }
+
+                        data = {
+                            type: index,
+                            photos: {},
+                            catagory: {}
+                        };
+                    };
+
+                    $('#gallery-title').on('keyup', function () {
+                        data.galleryTitle = this.value;
+                    });
+
+                    $('.photo-category').on('change', function () {
+                        data.catagory[this.name] = this.value;
+                    });
+
+                    $('#upload-image-button').click(function () {
+                        if(data.ready){
+                            $.ajax({
+                                url: '/ephoto/upload/submit',
+                                type: 'POST',
+                                data: data
+                            });
+                        }
+                    });
+                </script>
+            </center>
         </div>
-        </div>
-        
-        <div class="ow_photo_upload_page" id="page_upload_simple" style="display: none;">
-            <div class="ow_superwide ow_automargin">
-            {form name='photoUploadForm'}
-            <table class="ow_table_1 ow_form">
-                <tr class=" ow_tr_first ow_alt1">
-                    <td class="ow_label"></td>
-                    <td class="ow_value">
-                        {input name='photos'}{error name='photos'}
-                    </td>
-                    <td class="ow_desc ow_small">{$limitMsg}</td>
-                </tr>
-            </table>
-            <div class="clearfix">
-                <div class="ow_right">{submit name='upload' class='ow_ic_up_arrow ow_positive'}</div>
-            </div>
-            {/form}
-            </div>
-        </div>
-    {else}
-        <div class="ow_superwide ow_automargin">
-        {form name='photoUploadForm'}
-        <table class="ow_table_1 ow_form">
-            <tr class="ow_alt1 ow_tr_first">
-                <td class="ow_label"></td>
-                <td class="ow_value">
-                    {input name='photos'}{error name='photos'}
-                </td>
-                <td class="ow_desc ow_small">{$limitMsg}</td>
-            </tr>
-        </table>
-        <div class="clearfix">
-            <div class="ow_right"><input type="button" value="Reset" />{submit name='upload' class='ow_ic_up_arrow ow_positive'}</div>
-        </div>
-        {/form}
-        </div>
-    {/if}
     {else}
         <div class="ow_anno ow_std_margin ow_nocontent">{$auth_msg}</div>
     {/if}

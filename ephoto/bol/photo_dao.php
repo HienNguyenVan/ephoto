@@ -1,6 +1,6 @@
 <?php
 
-class ADVANCEDPHOTO_BOL_PhotoDao extends OW_BaseDao
+class EPHOTO_BOL_PhotoDao extends OW_BaseDao
 {
     /**
      * Singleton instance.
@@ -47,7 +47,7 @@ class ADVANCEDPHOTO_BOL_PhotoDao extends OW_BaseDao
      */
     public function getDtoClassName()
     {
-        return 'PHOTO_BOL_Photo';
+        return 'EPHOTO_BOL_Photo';
     }
 
     /**
@@ -56,7 +56,7 @@ class ADVANCEDPHOTO_BOL_PhotoDao extends OW_BaseDao
      */
     public function getTableName()
     {
-        return OW_DB_PREFIX . 'photo';
+        return OW_DB_PREFIX . 'ephoto';
     }
 
     
@@ -127,7 +127,7 @@ class ADVANCEDPHOTO_BOL_PhotoDao extends OW_BaseDao
     public function getPhotoList( $listtype, $page, $limit, $checkPrivacy = true )
     {
         $config = OW::getConfig();
-		$limit = (int) $config->getValue('advancedphoto', 'photofeature_per_page');
+		$limit = (int) $config->getValue('ephoto', 'photofeature_per_page');
         $first = ( $page - 1 ) * $limit;
 
         $albumDao = PHOTO_BOL_PhotoAlbumDao::getInstance();

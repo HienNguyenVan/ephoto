@@ -1,6 +1,6 @@
 <?php
 
-class ADVANCEDPHOTO_CMP_FeaturedPhotos extends OW_Component
+class EPHOTO_CMP_FeaturedPhotos extends OW_Component
 {
    
     public function __construct( array $params)
@@ -8,7 +8,7 @@ class ADVANCEDPHOTO_CMP_FeaturedPhotos extends OW_Component
 
         parent::__construct();
        	$this->assign('listType', 'featured');
-		OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('advancedphoto')->getStaticJsUrl() . 'hapsp.min.js');
+		OW::getDocument()->addScript(OW::getPluginManager()->getPlugin('ephoto')->getStaticJsUrl() . 'hapsp.min.js');
 		$script = '
 			hapsp.initialize({request_url: "", max_width: 150, id:"#hapFeaturedPhotos", loading_on_scroll:false});			  
 		';

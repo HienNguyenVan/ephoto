@@ -1,38 +1,58 @@
 <?php
 $config = OW::getConfig();
-if ( !$config->configExists('advancedphoto', 'photofeature_per_page') )
+if ( !$config->configExists('ephoto', 'photofeature_per_page') )
 {
-    $config->addConfig('advancedphoto', 'photofeature_per_page', 5, 'Featured Photos Count');
+    $config->addConfig('ephoto', 'photofeature_per_page', 5, 'Featured Photos Count');
 }
 
-if ( !$config->configExists('advancedphoto', 'uninstall_inprogress') )
+if ( !$config->configExists('ephoto', 'uninstall_inprogress') )
 {
-    $config->addConfig('advancedphoto', 'uninstall_inprogress', 0, 'Plugin is being uninstalled');
+    $config->addConfig('ephoto', 'uninstall_inprogress', 0, 'Plugin is being uninstalled');
 }
 
-if ( !$config->configExists('advancedphoto', 'uninstall_cron_busy') )
+if ( !$config->configExists('ephoto', 'uninstall_cron_busy') )
 {
-    $config->addConfig('advancedphoto', 'uninstall_cron_busy', 0, 'Uninstall queue is busy');
+    $config->addConfig('ephoto', 'uninstall_cron_busy', 0, 'Uninstall queue is busy');
 }
 
-if ( !$config->configExists('advancedphoto', 'maintenance_mode_state') )
+if ( !$config->configExists('ephoto', 'maintenance_mode_state') )
 {
     $state = (int) $config->getValue('base', 'maintenance');
-    $config->addConfig('advancedphoto', 'maintenance_mode_state', $state, 'Stores site maintenance mode config before plugin uninstallation');
+    $config->addConfig('ephoto', 'maintenance_mode_state', $state, 'Stores site maintenance mode config before plugin uninstallation');
 }
 
-OW::getPluginManager()->addPluginSettingsRouteName('advancedphoto', 'advancedphoto_admin_config');
+OW::getPluginManager()->addPluginSettingsRouteName('ephoto', 'ephoto_admin_config');
 
-OW::getPluginManager()->addUninstallRouteName('advancedphoto', 'advancedphoto_uninstall');
+OW::getPluginManager()->addUninstallRouteName('ephoto', 'ephoto_uninstall');
 
-$sql = "CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "photo_categories` (
+$sql = "CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "ephoto_categories` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(128) NOT NULL,
   `description` text,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-INSERT INTO `" . OW_DB_PREFIX . "photo_categories` (`id`, `name`, `description`) VALUES
+CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "ephoto` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(128) NOT NULL,
+  `galleryid` int NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "gallery` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(128) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "gallery_categories` (
+  `id` int(11) NOT NULL auto_increment,
+  `galleryid` int NOT NULL,
+  `catalogyid` int NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+INSERT INTO `" . OW_DB_PREFIX . "ephoto_categories` (`id`, `name`, `description`) VALUES
 (1, 'Business', NULL),
 (2, 'Arts & Culture', NULL),
 (3, 'Entertainment', NULL),
@@ -51,5 +71,5 @@ OW::getDbo()->query($sql);
 $sql = " ALTER TABLE `" . OW_DB_PREFIX . "photo_album` ADD category_id int(11) default 0; ";
 OW::getDbo()->query($sql);
 
-$path = OW::getPluginManager()->getPlugin('advancedphoto')->getRootDir() . 'langs.zip';
-OW::getLanguage()->importPluginLangs($path, 'advancedphoto');
+$path = OW::getPluginManager()->getPlugin('ephoto')->getRootDir() . 'langs.zip';
+OW::getLanguage()->importPluginLangs($path, 'ephoto');
