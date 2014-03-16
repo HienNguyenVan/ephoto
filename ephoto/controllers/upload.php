@@ -203,11 +203,39 @@ class EPHOTO_CTRL_Upload extends OW_ActionController
             $this->addComponent("menu", $menu);
         }
 
+        $service = EPHOTO_BOL_CategoryService::getInstance();
+
+        $agument = array();
+        $categories = $service->getCategoriesList();
+        foreach ( $categories as $category )
+        {
+            /* @var $contact CONTACTUS_BOL_Department */
+            $agument[$category->id]['name'] = $category->name;
+            $agument[$category->id]['id'] = $category->id;
+        }
+
+        $this->assign('categories', $agument);
+
         $this->assign('actionUrl', OW_URL_HOME.'photo/submit');
     }
 
     public function submit() {
-        
+        /**
+         * Photo save file to server
+         */
+        $photos = (array)$_POST['photos'];
+        foreach ($photos as $name => $img) {
+            $time = time();
+            $name = $time . '.' . $name;
+            $img = str_replace('data:image/png;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $data = base64_decode($img);
+            $file = 'ow_userfiles/plugins/ephoto/' . $name;
+            $success = file_put_contents($file, $data);
+        }
+        if ($_POST['type'] == 2) {
+            
+        }
     }
 }
 

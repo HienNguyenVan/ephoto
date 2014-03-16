@@ -25,14 +25,34 @@ OW::getPluginManager()->addPluginSettingsRouteName('ephoto', 'ephoto_admin_confi
 
 OW::getPluginManager()->addUninstallRouteName('ephoto', 'ephoto_uninstall');
 
-$sql = "CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "photo_categories` (
+$sql = "CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "ephoto_categories` (
   `id` int(11) NOT NULL auto_increment,
   `name` varchar(128) NOT NULL,
   `description` text,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-INSERT INTO `" . OW_DB_PREFIX . "photo_categories` (`id`, `name`, `description`) VALUES
+CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "ephoto` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(128) NOT NULL,
+  `galleryid` int NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "gallery` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(128) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `" . OW_DB_PREFIX . "gallery_categories` (
+  `id` int(11) NOT NULL auto_increment,
+  `galleryid` int NOT NULL,
+  `catalogyid` int NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+INSERT INTO `" . OW_DB_PREFIX . "ephoto_categories` (`id`, `name`, `description`) VALUES
 (1, 'Business', NULL),
 (2, 'Arts & Culture', NULL),
 (3, 'Entertainment', NULL),

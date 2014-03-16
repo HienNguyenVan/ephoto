@@ -56,77 +56,50 @@
 
 	(function() {
 		var fileInput = document.getElementById("file-input");
-		var unzipProgress = document.createElement("progress");
 		var fileList = document.getElementById("file-list");
 
-		function getDataBase64(entry, type, li) {
+		function getDataBase64(entry, type) {
 			model.getEntryFile(entry, type, function(blob) {
 				var clickEvent = document.createEvent("MouseEvent");
-				if (unzipProgress.parentNode){
-					unzipProgress.parentNode.removeChild(unzipProgress);
-				}
-				unzipProgress.value = 0;
-				unzipProgress.max = 0;
 
 				var reader = new FileReader();
 				reader.onload = function(e) {
-					var img = document.getElementById("image");
-					img.src = e.target.result;
+					data.photos[entry.filename] = e.target.result;
 				};
 				reader.readAsDataURL(blob);
-			}, function(current, total) {
-				unzipProgress.value = current;
-				unzipProgress.max = total;
-				li.appendChild(unzipProgress);
 			});
 		}
 
 		fileInput.addEventListener('change', function() {
-			var fileName = fileInput.files[0].name,
-				extensions = fileName.split('.'),
-				extension = extensions[extensions.length -1];
-			if(fileType[extension]){
+			try {
+				var fileName = fileInput.files[0].name,
+					extensions = fileName.split('.'),
+					extension = extensions[extensions.length -1];
 
-				var li = document.createElement("li");
-				var a = document.createElement("a");
-				a.textContent = fileName;
-				a.href = "#";
-				a.addEventListener("click", function(event) {
+				data.photos = {};
+
+				if(fileType[extension]){
 					var reader = new FileReader();
 					reader.onload = function(e) {
-						var img = document.getElementById("image");
-						img.src = e.target.result;
+						data.photos[fileName] = e.target.result;
 					};
 					reader.readAsDataURL(fileInput.files[0]);
-					
-					event.preventDefault();
-					return false;
-				}, false);
+				} else {
+					model.getEntries(fileInput.files[0], function(entries) {
+						entries.forEach(function(entry) {
+							var tokens = entry.filename.split('.'),
+								type = tokens[tokens.length - 1];
 
-				li.appendChild(a);
-				fileList.appendChild(li);
-			} else {
-				model.getEntries(fileInput.files[0], function(entries) {
-					fileList.innerHTML = "";
-					entries.forEach(function(entry) {
-						var tokens = entry.filename.split('.'),
-							type = tokens[tokens.length - 1];
-
-						if(fileType[type]){
-							var li = document.createElement("li");
-							var a = document.createElement("a");
-							a.textContent = entry.filename;
-							a.href = "#";
-							a.addEventListener("click", function(event) {
-								getDataBase64(entry, type, li);
-								event.preventDefault();
-								return false;
-							}, false);
-							li.appendChild(a);
-							fileList.appendChild(li);
-						}
+							if(fileType[type]){
+								getDataBase64(entry, type);
+							}
+						});
 					});
-				});
+				}
+				data.ready = true;
+			} catch (err) {
+				console.log(err);
+				data.ready = false;
 			}
 		}, false);
 	})();

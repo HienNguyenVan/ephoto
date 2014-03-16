@@ -38,7 +38,7 @@ class EPHOTO_BOL_PhotoAlbumDao extends OW_BaseDao
      */
     public function getDtoClassName()
     {
-        return 'EPHOTO_BOL_PhotoAlbum';
+        return 'EPHOTO_BOL_Gallegy';
     }
 
     /**
@@ -47,7 +47,7 @@ class EPHOTO_BOL_PhotoAlbumDao extends OW_BaseDao
      */
     public function getTableName()
     {
-        return OW_DB_PREFIX . 'photo_album';
+        return OW_DB_PREFIX . 'gallery';
     }
 
     /**

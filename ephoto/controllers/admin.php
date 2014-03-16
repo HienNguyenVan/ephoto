@@ -127,7 +127,7 @@ class EPHOTO_CTRL_Admin extends ADMIN_CTRL_Abstract {
             //OW::getConfig()->saveConfig('ephoto', 'uninstall_inprogress', 1);
             
             //PHOTO_BOL_PhotoService::getInstance()->setMaintenanceMode(true);
-            OW::getDbo()->query("DROP TABLE IF EXISTS `" . OW_DB_PREFIX . "photo_categories`;");
+            OW::getDbo()->query("DROP TABLE IF EXISTS `" . OW_DB_PREFIX . "ephoto_categories`;");
 			OW::getDbo()->query("ALTER TABLE `" . OW_DB_PREFIX . "photo_album` DROP `category_id`");
 			
 			BOL_PluginService::getInstance()->uninstall('ephoto');
