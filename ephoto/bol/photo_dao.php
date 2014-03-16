@@ -47,7 +47,7 @@ class EPHOTO_BOL_PhotoDao extends OW_BaseDao
      */
     public function getDtoClassName()
     {
-        return 'PHOTO_BOL_Photo';
+        return 'EPHOTO_BOL_Photo';
     }
 
     /**
@@ -56,7 +56,7 @@ class EPHOTO_BOL_PhotoDao extends OW_BaseDao
      */
     public function getTableName()
     {
-        return OW_DB_PREFIX . 'photo';
+        return OW_DB_PREFIX . 'ephoto';
     }
 
     

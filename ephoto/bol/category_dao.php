@@ -21,7 +21,7 @@ class EPHOTO_BOL_CategoryDao extends OW_BaseDao {
     }
 
     public function getTableName() {
-        return OW_DB_PREFIX . 'photo_categories';
+        return OW_DB_PREFIX . 'ephoto_categories';
     }
 
     public function getCategoryId($category) {
